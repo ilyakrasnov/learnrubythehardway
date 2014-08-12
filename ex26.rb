@@ -1,7 +1,8 @@
 module Ex26
 
   # This function will break up words for us.
-  # blabla ABC
+  # blabla ABC - XYZ
+
   def Ex25.brak_words(stuff
     words = stuff.split(' ')
     return word
