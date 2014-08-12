@@ -57,7 +57,6 @@ def calculate_fibonacci(number)
  		curr_num, next_num = next_num, curr_num + next_num	
  	end  
  	curr_num
-
 end
 
 start
