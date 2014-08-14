@@ -1,15 +1,10 @@
-require 'matrix'
-
-class Matrix
-	def []=(i, j, x)
-		@rows[i][j] = x
-	end
-end
 
 i, j = 10, 10
 array = ["-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","X"]
 
-picture = Matrix.build(i,j) { |row, col| row, col = array.sample(1)[0]  }
+Matrix.build(i,j) { |row, col| row, col = array.sample(1)[0]  }
+
+picture = 
 
 # picture.row_size.times do |row|
 # 	picture.column_size.times do |col|
