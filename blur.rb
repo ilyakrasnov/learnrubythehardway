@@ -21,6 +21,7 @@ picture = Matrix.build(i,j) { |row, col| row, col = array.sample(1)[0]  }
 # 	end
 # end
 
+
 def show_matrix(m)
 	m.row_size.times do |row|
 		print "._" * m.column_size + "\n"
