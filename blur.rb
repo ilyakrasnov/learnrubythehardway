@@ -78,8 +78,11 @@ def blur(p)
 
 				# There are still overflow problems
 
-				if cell[0]+horiz != nil
-					if cell[1]+vert != nil
+
+				# if cell[0]+horiz != nil
+				if (cell[0]+horiz).between?(0,p[0].length-1)
+					# if cell[1]+vert != nil
+					if (cell[1]+vert).between?(0,p.length-1) 
 						# blurred_cells << [cell[0]+horiz,cell[1]+vert]
 						blurred_picture[cell[0]+horiz][cell[1]+vert] = blurred_char		
 					else
