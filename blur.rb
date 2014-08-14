@@ -1,42 +1,52 @@
-
 i, j = 10, 10
-array = ["-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","X"]
 
-Matrix.build(i,j) { |row, col| row, col = array.sample(1)[0]  }
+picture = Array.new(i){Array.new(j)}
 
-picture = 
+def randomize_picture(p)
+	array = [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," ","X"]
+	rows = p.length
+	cols = p[0].length
 
-# picture.row_size.times do |row|
-# 	picture.column_size.times do |col|
-# 		if col == picture.column_size-1
-# 			print "#{row},#{col} \n"
-# 		else
-# 			print "#{row},#{col} "
-# 		end
-# 	end
-# end
-
-
-def show_matrix(m)
-	m.row_size.times do |row|
-		print "._" * m.column_size + "\n"
-			m.column_size.times do |col|
-				if col == m.column_size-1
-					
-					print "|#{m.element(row,col)}|\n"
-				else
-				 	print "|#{m.element(row,col)}"
-				end
-			end
-		end
-	print "._" * m.column_size + "\n"	
+	rows.times do |row|
+		cols.times do |col|
+			this_row = p[row]
+			this_row[col] = array.sample(1)[0]
+		end		
+	end
+	return p
 end
 
-def check_black_cells(m)
+randomize_picture(picture)
+
+def show_picture(p)
+
+	rows = p.length
+	cols = p[0].length
+
+	rows.times do |row|
+		print "____" * cols + "\n"
+
+		cols.times do |col|
+			this_row = p[row]
+			if col == cols-1
+				print " #{this_row[col]} |\n"
+			else
+				print " #{this_row[col]} |"
+			end
+		end		
+	end
+	print "____" * cols + "\n"
+end
+
+def check_black_cells(p)
+	rows = p.length
+	cols = p[0].length
+
 	black_cells = []
-	m.row_size.times do |row|
-		m.column_size.times do |col|
-			if m.element(row,col) == "X"
+	rows.times do |row|
+		cols.times do |col|
+			this_row = p[row]
+			if this_row[col] == "X"
 				coord = [row,col]
 				black_cells << coord
 			end
@@ -44,39 +54,54 @@ def check_black_cells(m)
 	end
 	return black_cells
 end
+# print "#{check_black_cells(picture)}\n"
 
 
+def blur(p)
+	puts "\nFirst picture: "
+	show_picture(p)
+	print "\n\n\n"
 
+	black_cells = check_black_cells(p)
+	puts "Coordinates of black_cells of the picture are: "
+	print "#{black_cells}\n\n\n"
 
-def blur(m)
-	black_cells = check_black_cells(m)
-	
-	res = m.collect { |e| 
-		e.downcase
-	}
+	blurred_picture = p
 
-	# black_cells.each do |cell|
-	# 	[-1,1].each do |horiz|
-	# 		[-1,1].each do |vert|
-	# 			m.element[cell[0]+horiz][cell[1]+vert]="Z"
-	# 		end
-	# 	end
-	# end
-	
-	show_matrix(res)
+	blurred_char = "0"
+
+	blurred_cells = []
+
+	black_cells.each do |cell|
+		[-1,0,1].each do |horiz|
+			[-1,0,1].each do |vert|
+				if cell[0]+horiz != nil
+					if cell[1]+vert != nil
+						# blurred_cells << [cell[0]+horiz,cell[1]+vert]
+						blurred_picture[cell[0]+horiz][cell[1]+vert] = blurred_char		
+					else
+						# blurred_cells << [cell[0]+horiz,cell[1]]
+						blurred_picture[cell[0]+horiz][cell[1]] = blurred_char
+					end
+				else
+					if cell[1]+vert != nil
+						# blurred_cells << [cell[0],cell[1]+vert]
+						blurred_picture[cell[0]][cell[1]+vert] = blurred_char		
+					else
+						# blurred_cells << [cell[0],cell[1]]
+						blurred_picture[cell[0]][cell[1]] = blurred_char
+					end
+				end
+
+				blurred_cells << [cell[0]+horiz,cell[1]+vert]
+				
+			end
+		end
+	end
+	# puts "Cells to be blurred: \n"
+	# print blurred_cells
+	puts "Resulting blurred picture: "
+	show_picture(blurred_picture)
 end
 
-
-
-
-
-
-
-
-
-
-show_matrix(picture)
-puts "___________________________"
-puts check_black_cells(picture)
-puts "___________________________"
 blur(picture)
