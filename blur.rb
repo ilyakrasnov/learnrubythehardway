@@ -75,6 +75,9 @@ def blur(p)
 	black_cells.each do |cell|
 		[-1,0,1].each do |horiz|
 			[-1,0,1].each do |vert|
+
+				# There are still overflow problems
+
 				if cell[0]+horiz != nil
 					if cell[1]+vert != nil
 						# blurred_cells << [cell[0]+horiz,cell[1]+vert]
