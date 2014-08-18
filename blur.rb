@@ -1,9 +1,13 @@
-i, j = 10, 10
+i, j = 30, 30
+
+puts "Please chose the Manhattan distance: "
+print "> "
+n = $stdin.gets.chomp.to_i
 
 picture = Array.new(i){Array.new(j)}
 
 def randomize_picture(p)
-	array = [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," ","X"]
+	array = [" "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," "," ","X"]
 	rows = p.length
 	cols = p[0].length
 
@@ -11,6 +15,7 @@ def randomize_picture(p)
 		cols.times do |col|
 			this_row = p[row]
 			this_row[col] = array.sample(1)[0]
+			
 		end		
 	end
 	return p
@@ -33,7 +38,7 @@ def show_picture(p)
 			else
 				print " #{this_row[col]} |"
 			end
-		end		
+		end		 
 	end
 	print "____" * cols + "\n"
 end
@@ -57,7 +62,7 @@ end
 # print "#{check_black_cells(picture)}\n"
 
 
-def blur(p)
+def blur(p,n)
 	puts "\nFirst picture: "
 	show_picture(p)
 	print "\n\n\n"
@@ -73,28 +78,22 @@ def blur(p)
 	blurred_cells = []
 
 	black_cells.each do |cell|
-		[-1,0,1].each do |horiz|
-			[-1,0,1].each do |vert|
+		(-n..n).each do |horiz|
+			(-n..n).each do |vert|
 
-				# There are still overflow problems
-
-
-				# if cell[0]+horiz != nil
-				if (cell[0]+horiz).between?(0,p[0].length-1)
-					# if cell[1]+vert != nil
-					if (cell[1]+vert).between?(0,p.length-1) 
-						# blurred_cells << [cell[0]+horiz,cell[1]+vert]
-						blurred_picture[cell[0]+horiz][cell[1]+vert] = blurred_char		
+				if cell[0]+horiz < p.size
+					if cell[1]+vert < p[0].size
+						# puts "|#{horiz}| + |#{vert}| = #{vert.abs + horiz.abs}"
+						if horiz.abs + vert.abs <= n
+						blurred_picture[cell[0]+horiz][cell[1]+vert] = blurred_char			
+						end
 					else
-						# blurred_cells << [cell[0]+horiz,cell[1]]
 						blurred_picture[cell[0]+horiz][cell[1]] = blurred_char
 					end
 				else
-					if cell[1]+vert != nil
-						# blurred_cells << [cell[0],cell[1]+vert]
+					if cell[1]+vert < p[0].size
 						blurred_picture[cell[0]][cell[1]+vert] = blurred_char		
 					else
-						# blurred_cells << [cell[0],cell[1]]
 						blurred_picture[cell[0]][cell[1]] = blurred_char
 					end
 				end
@@ -110,4 +109,4 @@ def blur(p)
 	show_picture(blurred_picture)
 end
 
-blur(picture)
+blur(picture,n)
