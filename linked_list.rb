@@ -37,6 +37,36 @@ def show_functional(l)
 	end
 end
 
+
+def reverse(l)
+	last = nil
+	second_last = nil
+
+	if l.next == nil
+		return l
+	end
+		
+	while !l.next.next.nil?
+
+		second_last = l.next
+		last = l.next.next
+		
+		# puts last.payload
+		# puts second_last.payload
+		
+		last.next = second_last
+		second_last.next = nil
+
+
+	end
+
+	
+
+	
+	
+	return last
+end
+
 # Try putting every node in an array
 def list_to_array(l)
 	node = l
@@ -62,7 +92,7 @@ def array_to_list(arr)
 end
 
 # Combine two functions in one and show the result
-def reverse(l) 
+def reverse_list(l) 
 	show_functional(array_to_list(list_to_array(l)))
 end
 
