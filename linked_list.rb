@@ -37,35 +37,56 @@ def show_functional(l)
 	end
 end
 
-
 def reverse(l)
-	last = nil
-	second_last = nil
 
-	if l.next == nil
-		return l
-	end
-		
-	while !l.next.next.nil?
+	first = l
 
-		second_last = l.next
-		last = l.next.next
-		
-		# puts last.payload
-		# puts second_last.payload
-		
-		last.next = second_last
-		second_last.next = nil
-
+	while !first.next.nil?
+		tail = first.next
+		first.next = nil
 
 	end
-
 	
-
-	
-	
-	return last
 end
+
+
+
+# def reverse(l)
+# 	print "\n"
+# 	print "Original list:\n"
+# 	print "\n"
+# 	show_functional(l)
+
+# 	if l.next.nil?
+# 		l
+# 	end
+
+# 	first = l
+# 	last = l
+# 	second_last = nil
+
+# 	while !first.next.nil?
+# 		puts "While 1: #{l.payload}"
+# 		while !last.next.nil?
+# 			puts "While 2.1: #{last.payload}"
+# 			second_last = last
+# 			last = last.next
+# 			puts "While 2.2: #{last.payload}"
+# 		end
+		
+# 		# last.next = second_last
+# 		# second_last = nil
+# 	end
+
+
+		
+# 	print "\n"	
+# 	print "New list:\n"
+# 	print "\n"
+
+# 	show_functional(last)	
+# end
+
 
 # Try putting every node in an array
 def list_to_array(l)
@@ -96,14 +117,14 @@ def reverse_list(l)
 	show_functional(array_to_list(list_to_array(l)))
 end
 
-print "Original list:\n\n"
-show_functional(ll1)
+# print "Original list:\n\n"
+# show_functional(ll1)
 
-puts "\n"
+# puts "\n"
 
-print "Reversed list:\n\n"
+# print "Reversed list:\n\n"
 reverse(ll1)
-puts "\n"
+# puts "\n"
 
 
 # def iterate_recursive(l)
