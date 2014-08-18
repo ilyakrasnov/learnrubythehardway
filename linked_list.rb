@@ -38,18 +38,28 @@ def show_functional(l)
 end
 
 def reverse(l)
-
-	first = l
-
-	while !first.next.nil?
-		tail = first.next
-		first.next = nil
-
+	if l.next.nil?
+		return l
 	end
+
+	last = l
+	second_last = nil
+
+	while !last.next.nil? 
+		second_last = last
+		last = last.next
+	end
+	second_last.next = nil
+	last.next = reverse(l)
+	
+	return last
 	
 end
 
-
+# show_functional(reverse(ll1))
+show_functional(ll1)
+print "\n\n\n\n"
+show_functional(reverse(ll1))
 
 # def reverse(l)
 # 	print "\n"
@@ -123,7 +133,7 @@ end
 # puts "\n"
 
 # print "Reversed list:\n\n"
-reverse(ll1)
+# reverse(ll1)
 # puts "\n"
 
 
